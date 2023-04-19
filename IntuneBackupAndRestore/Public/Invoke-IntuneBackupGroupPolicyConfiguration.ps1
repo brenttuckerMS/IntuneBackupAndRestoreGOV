@@ -46,7 +46,7 @@ function Invoke-IntuneBackupGroupPolicyConfiguration {
             $groupPolicyPresentationValues = (Invoke-MSGraphRequest -HttpMethod GET -Url "deviceManagement/groupPolicyConfigurations/$($groupPolicyConfiguration.id)/definitionValues/$($groupPolicyDefinitionValue.id)/presentationValues?`$expand=presentation").Value | Select-Object -Property * -ExcludeProperty lastModifiedDateTime, createdDateTime
             $groupPolicyBackupValue = @{
                 "enabled" = $groupPolicyDefinitionValue.enabled
-                "definition@odata.bind" = "https://graph.microsoft.com/beta/deviceManagement/groupPolicyDefinitions('$($groupPolicyDefinition.id)')"
+                "definition@odata.bind" = "https://graph.microsoft.us/beta/deviceManagement/groupPolicyDefinitions('$($groupPolicyDefinition.id)')"
             }
 
             if ($groupPolicyPresentationValues.value) {
@@ -56,7 +56,7 @@ function Invoke-IntuneBackupGroupPolicyConfiguration {
                         @{
                             "@odata.type" = $groupPolicyPresentationValue.'@odata.type'
                             "value" = $groupPolicyPresentationValue.value
-                            "presentation@odata.bind" = "https://graph.microsoft.com/beta/deviceManagement/groupPolicyDefinitions('$($groupPolicyDefinition.id)')/presentations('$($groupPolicyPresentationValue.presentation.id)')"
+                            "presentation@odata.bind" = "https://graph.microsoft.us/beta/deviceManagement/groupPolicyDefinitions('$($groupPolicyDefinition.id)')/presentations('$($groupPolicyPresentationValue.presentation.id)')"
                         }
                 }
             } elseif ($groupPolicyPresentationValues.values) {
@@ -71,7 +71,7 @@ function Invoke-IntuneBackupGroupPolicyConfiguration {
                                 }
                             }
                         )
-                        "presentation@odata.bind" = "https://graph.microsoft.com/beta/deviceManagement/groupPolicyDefinitions('$($groupPolicyDefinition.id)')/presentations('$($groupPolicyPresentationValues.presentation.id)')"
+                        "presentation@odata.bind" = "https://graph.microsoft.us/beta/deviceManagement/groupPolicyDefinitions('$($groupPolicyDefinition.id)')/presentations('$($groupPolicyPresentationValues.presentation.id)')"
                     }
                 )
             }
